@@ -7,3 +7,11 @@ ENV/
 
 
 .idea/
+
+
+# Ignore SQLite database file
+db.sqlite3
+
+# Ignore compiled Python files
+task_manager/__pycache__/
+tasks/__pycache__/
