@@ -1,11 +1,13 @@
-from django.urls import path
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
 
-from tasks.views import ListCreateTaskApi
+from tasks.views import TaskViewSet
+
 
 app_name = 'tasks'
+router = DefaultRouter()
+router.register(r'api/tasks', TaskViewSet, basename='task')
+
 urlpatterns = [
-  path('api/tasks/', ListCreateTaskApi.as_view(), name='create-task'),
-  # path('api/tasks/{id}', RetrieveTaskApi, name='retrieve-task'),
-  # path('api/tasks/{id}', UpdateTaskApi, name='update-task'),
-  # path('api/tasks/{id}', DeleteTaskApi, name='delete-task'),
+    path('', include(router.urls)),
 ]
