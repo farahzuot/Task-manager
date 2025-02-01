@@ -10825,7 +10825,7 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
-html , body{
+html {
   height: 100%;
   scroll-padding-top: calc(4.5rem - 1px);
 }
@@ -11043,4 +11043,37 @@ html , body{
 
 .copyright {
   background-color: #1a252f;
+}
+
+/* forms */
+
+form label {
+  font-size: 25px;
+  color: dimgrey;
+  margin-bottom: 10px;
+}
+
+.form-control {
+  padding: 1rem 0.75rem;
+  margin-bottom: 25px;
+  color: dimgray;
+}
+
+.description {
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Limits to 3 lines */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.form-check-label {
+    font-size: 15px;
+    margin-top: 2px;
+}
+
+.form-check-input {
+  width: 1.2em;
+  height: 1.2em;
+  margin-right: 5px;
 }
