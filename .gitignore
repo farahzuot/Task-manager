@@ -15,3 +15,6 @@ db.sqlite3
 # Ignore compiled Python files
 task_manager/__pycache__/
 tasks/__pycache__/
+__pycache__/
+*.pyc
+*.pyo
