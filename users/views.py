@@ -1,6 +1,10 @@
 from django.contrib.auth import authenticate
+from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.views import LoginView
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
+from django.views import View
+from django.views.generic import FormView
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -13,7 +17,7 @@ from users.serializers import RegisterSerializer, UserSerializer
 
 # Create your views here.
 
-class RegisterView(APIView):
+class RegisterAPIView(APIView):
     """  Handle user registration. """
 
     def post(self, request):
@@ -44,3 +48,23 @@ class LoginAPIView(APIView):
 
 class CustomLogin(LoginView):
     template_name = 'users/custom_login.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return redirect('tasks:tasks-list')
+        return super().dispatch(request, *args, **kwargs)
+
+
+class RegisterView(FormView):
+    template_name = 'users/register.html'
+    form_class = UserCreationForm
+    success_url = reverse_lazy('users:login')
+
+    def form_valid(self, form):
+        form.save()
+        return super().form_valid(form)
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return redirect('tasks:tasks-list')
+        return super().dispatch(request, *args, **kwargs)
