@@ -1,4 +1,6 @@
 from django.contrib.auth import authenticate
+from django.contrib.auth.views import LoginView
+from django.urls import reverse_lazy
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -22,7 +24,7 @@ class RegisterView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class LoginView(APIView):
+class LoginAPIView(APIView):
     """ Handle user login and return JWT token pair. """
 
     def post(self, request):
@@ -38,3 +40,7 @@ class LoginView(APIView):
             'refresh': str(refresh),
             'access': str(refresh.access_token),
         }, status=status.HTTP_200_OK)
+
+
+class CustomLogin(LoginView):
+    template_name = 'users/custom_login.html'

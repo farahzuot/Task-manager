@@ -11077,3 +11077,14 @@ form label {
   height: 1.2em;
   margin-right: 5px;
 }
+
+
+.logout-btn {
+    background: none;
+    border: none;
+   color: #fff;
+}
+
+.logout-btn:hover {
+    color: #1abc9c;
+}

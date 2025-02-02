@@ -42,7 +42,7 @@ class TaskListView(LoginRequiredMixin, ListView):
 class TaskCreateView(LoginRequiredMixin, CreateView):
     model = Task
     template_name = 'tasks/task_create.html'
-    fields = ['title', 'description', 'due_date']
+    fields = ['title', 'description']
     success_url = reverse_lazy('tasks:tasks-list')
 
     def form_valid(self, form):

@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <!-- Contact Section-->
+    <section class="page-section" id="contact">
+        <div class="container">
+            <!-- Contact Section Heading-->
+            <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Login</h2>
+            <!-- Icon Divider-->
+            <div class="divider-custom">
+                <div class="divider-custom-line"></div>
+                <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                <div class="divider-custom-line"></div>
+            </div>
+            <!-- Contact Section Form-->
+
+            {% if not request.user.is_authenticated %}
+            <div class="row justify-content-center">
+                <div class="col-lg-8 col-xl-7">
+                    <form id="createTaskForm" method="post">
+                        {% csrf_token %}
+                        <div class="">
+                            <label for="username">Username</label>
+                            <input class="form-control" name="username" id="username" type="text" placeholder="" data-sb-validations="required" />
+                            {% if form.username.errors %}
+                                <div class="text-danger">{{ form.username.errors }}</div>
+                            {% endif %}
+                        </div>
+                        <div class="">
+                            <label for="password">Password</label>
+                            <input class="form-control" name="password" id="password" type="password" placeholder="" data-sb-validations="required" />
+                            {% if form.password.errors %}
+                                <div class="text-danger">{{ form.password.errors }}</div>
+                            {% endif %}
+                        </div>
+
+                        <button class="btn btn-primary btn-xl" id="submitButton" type="submit">Login <i class="fas fa-sign-in-alt"></i></button>
+                    </form>
+                </div>
+            </div>
+            {% else %}
+            <p class="text-center">You are already Logged In. Back to <a href="{% url 'tasks:tasks-list' %}">Home</a></p>
+            {% endif %}
+
+        </div>
+    </section>
+{% endblock content %}

@@ -31,13 +31,7 @@
                                 <div class="text-danger">{{ form.description.errors }}</div>
                             {% endif %}
                         </div>
-                        <div class="">
-                            <label for="due_date">Due Date</label>
-                            <input name="due_date" class="form-control" id="due_date" type="date" />
-                            {% if form.due_date.errors %}
-                                <div class="text-danger">{{ form.due_date.errors }}</div>
-                            {% endif %}
-                        </div>
+
                         <button class="btn btn-primary btn-xl" id="submitButton" type="submit">Create</button>
                     </form>
                 </div>
