@@ -12,5 +12,8 @@ A simple Task Management App using **Django, DRF, and JWT Authentication**.
     `pip install -r requirements.txt  `
 3. Apply migrations:
     `python manage.py migrate`  
-4. Run the server:
+4. Run seed data:
+    `python manage.py seed`  
+    `username: user, password: user123` 
+5. Run the server:
     `python manage.py runserver`  
