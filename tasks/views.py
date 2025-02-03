@@ -3,7 +3,7 @@ from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views import View
-from django.views.generic import ListView, CreateView, DetailView
+from django.views.generic import ListView, CreateView, DetailView, UpdateView
 from rest_framework import generics, permissions, viewsets
 from rest_framework.permissions import IsAuthenticated
 
@@ -50,24 +50,16 @@ class TaskCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class TaskDetailView(LoginRequiredMixin, DetailView):
+
+
+class TaskUpdateView(LoginRequiredMixin, UpdateView):
     model = Task
-    template_name = 'tasks/task_detail.html'
+    fields = ['title', 'description', 'completed']
+    template_name = 'tasks/task_update.html'
     context_object_name = 'task'
 
-    def get_queryset(self):
-        return Task.objects.filter(user=self.request.user)
+    def get_success_url(self):
+        return reverse_lazy('tasks:tasks-list')
 
-    def get_object(self):
-        # Ensures the task ID is used to retrieve the correct task
-        task_id = self.kwargs['id']
-        return Task.objects.get(id=task_id, user=self.request.user)
-
-
-class TaskUpdateStatusView(View):
-    def patch(self, request, *args, **kwargs):
-        task = get_object_or_404(Task, pk=kwargs['pk'], user=request.user)
-        task.completed = not task.completed
-        task.save()
-
-        return JsonResponse({'completed': task.completed})
+    def get_object(self, queryset=None):
+        return get_object_or_404(Task, pk=self.kwargs['id'], user=self.request.user)
