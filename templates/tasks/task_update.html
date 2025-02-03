@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <!-- Contact Section-->
+    <section class="page-section" id="contact">
+        <div class="container">
+            <!-- Contact Section Heading-->
+            <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Update Task</h2>
+            <!-- Icon Divider-->
+            <div class="divider-custom">
+                <div class="divider-custom-line"></div>
+                <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                <div class="divider-custom-line"></div>
+            </div>
+            <!-- Contact Section Form-->
+            <div class="row justify-content-center">
+                <div class="col-lg-8 col-xl-7">
+                    <form id="createTaskForm" method="post">
+                        {% csrf_token %}
+                        <div class="">
+                            <label for="title">Title</label>
+                            <input class="form-control" name="title" id="title" type="text" value="{{ task.title }}" data-sb-validations="required" />
+                            {% if form.title.errors %}
+                                <div class="text-danger">{{ form.title.errors }}</div>
+                            {% endif %}
+                        </div>
+                        <div class="">
+                            <label for="description">Description</label>
+                            <textarea class="form-control" id="description" type="text" name="description"  style="height: 10rem" data-sb-validations="required">{{ task.description }}</textarea>
+                            {% if form.description.errors %}
+                                <div class="text-danger">{{ form.description.errors }}</div>
+                            {% endif %}
+                        </div>
+                        <div class="mb-3">
+                            <input class="form-check-input" type="checkbox" name="completed" id="completed" {% if task.completed %} checked {% endif %} />
+                            <label class="form-check-label" for="completed"> Mark As Completed</label>
+                        </div>
+                        <button class="btn btn-primary btn-xl" id="submitButton" type="submit">Update</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock content %}
