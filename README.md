@@ -17,7 +17,7 @@ A simple Task Management App using **Django, DRF, and JWT Authentication**.
     `username: user, password: user123` 
 5. Run the server:\
     `python manage.py runserver` 
-6. To run the tests:
+6. To run the tests:\
    `pytest`
 
 
