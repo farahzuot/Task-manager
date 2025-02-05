@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     # Third parties
     'rest_framework',
     'rest_framework_simplejwt',
+    'drf_yasg',
 
     # Django
     'django.contrib.admin',
@@ -46,6 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
 ]
 
 MIDDLEWARE = [

@@ -4,6 +4,7 @@ from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import ListView, CreateView, DetailView, UpdateView
+from drf_yasg.utils import swagger_auto_schema
 from rest_framework import generics, permissions, viewsets
 from rest_framework.permissions import IsAuthenticated
 
@@ -23,14 +24,37 @@ class TaskViewSet(viewsets.ModelViewSet):
     Permissions:
     - Authenticated users can access their tasks only.
     """
+
     serializer_class = TaskSerializer
     permission_classes = (IsAuthenticated, IsTaskOwner)
 
     def get_queryset(self):
         return Task.objects.filter(user=self.request.user)
 
+    @swagger_auto_schema(operation_description="List all tasks.")
+    def list(self, request, *args, **kwargs):
+        return super().create(request, *args, **kwargs)
+
+    @swagger_auto_schema(operation_description="Create a new task with title and description")
+    def create(self, request, *args, **kwargs):
+        return super().create(request, *args, **kwargs)
+
+    @swagger_auto_schema(operation_description="Retrieve a task by its ID")
+    def retrieve(self, request, *args, **kwargs):
+        return super().retrieve(request, *args, **kwargs)
+
+    @swagger_auto_schema(operation_description="Update an existing task's details")
+    def update(self, request, *args, **kwargs):
+        return super().update(request, *args, **kwargs)
+
+    @swagger_auto_schema(operation_description="Delete a task by its ID")
+    def destroy(self, request, *args, **kwargs):
+        return super().destroy(request, *args, **kwargs)
+
 
 class TaskListView(LoginRequiredMixin, ListView):
+    """ List 10 tasks per page. """
+
     model = Task
     template_name = 'tasks/task_list.html'
     context_object_name = 'tasks'
@@ -41,6 +65,8 @@ class TaskListView(LoginRequiredMixin, ListView):
 
 
 class TaskCreateView(LoginRequiredMixin, CreateView):
+    """ A view to create a new task. """
+
     model = Task
     template_name = 'tasks/task_create.html'
     fields = ['title', 'description']
